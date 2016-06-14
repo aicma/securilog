@@ -25,13 +25,8 @@ angular.module('securilog', ['ionic', 'securilog.controllers'])
 
 .config(function ($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
     .state('tab', {
       url: '/tab',
       abstract: true,
@@ -41,32 +36,47 @@ angular.module('securilog', ['ionic', 'securilog.controllers'])
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
-      controller: 'loginCtrl'
+      controller: 'EventCtrl'
     })
 
     // Each tab has its own nav history stack:
-
-    .state('tab.landing', {
-      url: '/landing',
-      views: {
-        'tab-landing': {
-          templateUrl: 'templates/landing.html',
-          controller: 'landingCtrl'
-        }
-      }
+    .state('landing', {
+      url:'/landing',
+      templateUrl: 'templates/landing.html',
+      controller: 'LandingCtrl'
     })
 
-    .state('tab.search', {
+    .state('search', {
       url: '/search',
-      views: {
-        'tab-search': {
-          templateUrl: 'templates/search.html',
-          controller: 'searchCtrl'
-        }
-      }
+      templateUrl: 'templates/search.html',
+      controller: 'SearchCtrl'
+    })
+
+    .state('searchresult', {
+      url: '/searchresult',
+      templateUrl: 'templates/searchresult.html',
+      controller: 'SearchResultCtrl'
+    })
+
+    .state('new', {
+      url: '/new',
+      templateUrl: 'templates/new.html',
+      controller: 'NewCtrl'
+    })
+
+    .state('events', {
+      url: '/events',
+      templateUrl: 'templates/events.html',
+      controller: 'EventCtrl'
+    })
+
+    .state('eventDetail', {
+      url: '/events/:eventID',
+      templateUrl: 'templates/event-detail.html',
+      controller: 'EventDetailCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/landing');
 });
 
