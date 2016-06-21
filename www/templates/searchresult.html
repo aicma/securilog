@@ -1,8 +1,9 @@
 <ion-view view-title="searchresult">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="result in results">
-
+      <ion-item ng-repeat="result in results"href="#/events/{{result._id}}">
+        <b>{{result.date.split('T')[0]}}</b> <br>
+        {{result.description}}
       </ion-item>
     </ion-list>
   </ion-content>

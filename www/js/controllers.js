@@ -47,14 +47,27 @@ angular.module('securilog.controllers', ['securilog.services'])
       console.log("The loading indicator is now hidden");
     });
   };
-
 })
 
-.controller('SearchCtrl', function($scope, Eventservice){})
+.controller('SearchCtrl', function($scope){
+  $scope.search = function(){
+    var searchString = document.getElementById('personfield').value;
+    window.location.href = '#/search/' + searchString;
+  }
+})
 
-.controller('SearchResultCtrl', function($scope) {
-    $scope.results =
-  })
+.controller('SearchResultCtrl', function($scope, $stateParams, $ionicLoading, Search) {
+  $scope.$on('$ionicView.enter', function () {
+    $ionicLoading.show({template: '<ion-spinner></ion-spinner>'});
+
+    Search.findEventsbyName($stateParams.searchString).then(function (result) {
+      console.log(result);
+      $scope.results = result;
+      $scope.$apply();
+      $ionicLoading.hide();
+    });
+  });
+})
 .controller('NewCtrl', function($scope){
 
 })

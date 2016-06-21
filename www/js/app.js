@@ -53,7 +53,7 @@ angular.module('securilog', ['ionic', 'securilog.controllers'])
     })
 
     .state('searchresult', {
-      url: '/searchresult',
+      url: '/search/:searchString',
       templateUrl: 'templates/searchresult.html',
       controller: 'SearchResultCtrl'
     })

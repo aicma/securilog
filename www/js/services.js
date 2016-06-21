@@ -45,4 +45,20 @@ angular.module('securilog.services', [])
     }
   }
 })
+
+.factory('Search', function($http){
+  return {
+
+    findEventsbyName: function(nameString){
+      return new Promise(function (resolve, reject) {
+        $http.get('https://securilog.herokuapp.com/events/search?name=' + nameString).then(function (response) {
+          resolve(response.data);
+        }, function (error) {
+          console.log(error);
+          reject();
+        })
+      })
+    }
+  }
+})
 ;
