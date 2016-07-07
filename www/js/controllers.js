@@ -1,9 +1,5 @@
 angular.module('securilog.controllers', ['securilog.services'])
 
-.controller('LandingCtrl', function($scope){
-
-})
-
 .controller('EventCtrl', function($scope, $ionicLoading, Eventservice){
 
   $scope.$on('$ionicView.beforeEnter', function(){
@@ -27,26 +23,13 @@ angular.module('securilog.controllers', ['securilog.services'])
     Eventservice.getOne($stateParams.eventID).then(function (result) {
         console.log(result);
         $scope.event = result;
-        Eventservice.getInvolved(result.inv_person).then(function (resultArray) {
+        Eventservice.getPersonById(result.inv_person).then(function (resultArray) {
           $scope.involved = resultArray;
           $scope.$apply();
           $ionicLoading.hide();
         });
     });
   });
-
-  $scope.show = function() {
-    $ionicLoading.show({
-      template: 'Loading...'
-    }).then(function(){
-      console.log("The loading indicator is now displayed");
-    });
-  };
-  $scope.hide = function(){
-    $ionicLoading.hide().then(function(){
-      console.log("The loading indicator is now hidden");
-    });
-  };
 })
 
 .controller('SearchCtrl', function($scope){
@@ -68,7 +51,49 @@ angular.module('securilog.controllers', ['securilog.services'])
     });
   });
 })
-.controller('NewCtrl', function($scope){
 
+.controller('NewCtrl', function($scope, $ionicPopup, Eventservice, Locations, People){
+  $scope.$on('$ionicView.enter', function(){
+    Locations.all().then(function(success){
+      $scope.locations = success;
+      //console.log($scope.locations);
+      $scope.$apply();
+    });
+  });
+  $scope.date = new Date();
+
+  $scope.submit = function() {
+    var data ={
+      date: document.getElementById('datefield').value,
+      description: document.getElementById('description').value,
+      inv_person: People.toAdd,
+      location: document.getElementById('locationfield').value,
+      tags: document.getElementById('tags').value.split(" ")
+    };
+
+    if(data.description != null && data.inv_person.length != 0) {
+      console.log(data);
+      //Eventservice.newEvent(data);
+    }else{
+      console.log("we are working on this");
+      $ionicPopup.alert({
+          title: 'Not enough Data',
+          template: 'please add at least one person and add a description!'
+      });
+    }
+
+
+  };
+
+})
+
+.controller('PeopleCtrl', function($http, $scope){
+  $scope.$on('$ionicView.enter', function(){
+    $http.get('https://securilog.herokuapp.com/people').then(function(response){
+      $scope.people = response.data;
+      console.log(response.data);
+      $scope.$apply();
+    })
+  });
 })
 ;

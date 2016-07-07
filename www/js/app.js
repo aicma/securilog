@@ -64,6 +64,12 @@ angular.module('securilog', ['ionic', 'securilog.controllers'])
       controller: 'NewCtrl'
     })
 
+    .state('people', {
+      url: '/people',
+      templateUrl: 'templates/people.html',
+      controller: 'PeopleCtrl'
+    })
+
     .state('events', {
       url: '/events',
       templateUrl: 'templates/events.html',

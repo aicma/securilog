@@ -2,14 +2,28 @@
   <ion-content>
     <label class="item item-input">
       <span class="input-label">Date:</span>
-      <input id="datefield" type="date">
+      <input id="datefield" type="date" ng-model="date">
     </label>
-
-
-
+    <b>Involved People:</b>
+    <ion-list>
+      <ion-item ng-repeat="person in invPeople">{{person.name}}, {{person.firstName}}</ion-item>
+      <ion-item><i class="ion-plus-round" ng-click="addPersonDialog()"></i></ion-item>
+    </ion-list>
+    <label class="item item-input item-select">
+      <div class="input-label"> Location
+      <select id="locationfield">
+        <option>select location</option>
+        <option ng-repeat="location in locations">{{location.name}}</option>
+      </select>
+      </div>
+      </label>
     <label class="item item-input">
-      <textarea id="description" placeholder="description of what happened" value=""></textarea>
+      <input type="text" id="description" placeholder="description of what happened" ng-model="desc" ng-model-instant></input>
     </label>
+    <label class="item item-input">
+      <input type="text" id="tags" placeholder="Tags separated by spaces " ng-model="tags" ng-model-instant></input>
+    </label>
+    <button class="button button-energized" ng-click="submit()">Add Event</button>
 
   </ion-content>
 </ion-view>
