@@ -42,8 +42,7 @@ angular.module('securilog', ['ionic', 'securilog.controllers'])
     // Each tab has its own nav history stack:
     .state('landing', {
       url:'/landing',
-      templateUrl: 'templates/landing.html',
-      controller: 'LandingCtrl'
+      templateUrl: 'templates/landing.html'
     })
 
     .state('search', {
